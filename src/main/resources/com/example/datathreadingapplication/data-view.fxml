@@ -85,7 +85,7 @@
             </VBox>
             <VBox fx:id="selectFileVbox11" alignment="CENTER" prefHeight="200.0" prefWidth="300.0">
                <children>
-                  <Label text="0">
+                  <Label fx:id="errorCounter" text="0">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -96,7 +96,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button mnemonicParsing="false" text="Proceed">
+            <Button fx:id="proceedBtn" mnemonicParsing="false" text="Proceed">
                <font>
                   <Font size="16.0" />
                </font>

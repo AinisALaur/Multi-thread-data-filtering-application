@@ -24,6 +24,7 @@ public class DataManager implements Runnable{
     public void run(){
         String line;
         String splitBy = ",";
+        int errors = 0;
 
         long totalLines, processed = 0;
 
@@ -53,29 +54,38 @@ public class DataManager implements Runnable{
                     domain = values[6];
                     birth_date = LocalDate.parse(values[7]);
                 }catch (Exception e){
+                    if(!values[0].equals("id")) {
+                        ++errors;
+                        int finalErrors = errors;
+                        Platform.runLater(() ->
+                                controller.updateErrorCount(finalErrors)
+                        );
+                    }
+
                     continue;
                 }
 
                 TableInstance instance = new TableInstance(id, name, last_name, email, gender, country, domain, birth_date);
                 instances.add(instance);
 
-                if(processed % 100 == 0 || processed ==  totalLines){
-                    double percent;
+                double percent = (processed * 100.0) / totalLines;
 
-                    if(processed ==  totalLines){
-                        percent = 100.0;
-                    } else {
-                        percent = (processed * 100.0) / totalLines;
-                    }
+                Platform.runLater(() ->
+                    controller.setProgress(String.format("%.2f%%", percent))
+                );
 
+                if(percent >= 100 && errors == 0){
                     Platform.runLater(() ->
-                        controller.setProgress(String.format("%.2f%%", percent))
+                            controller.activateProceed()
                     );
                 }
 
+                Thread.sleep(1);
             }
         } catch (IOException e) {
             System.out.println("Error reading file");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
