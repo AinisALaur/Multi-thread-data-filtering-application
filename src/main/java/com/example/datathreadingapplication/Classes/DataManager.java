@@ -14,17 +14,26 @@ import java.util.ArrayList;
 public class DataManager implements Runnable{
     private String fileDataPath;
     private DataController controller;
+    private int errors;
 
     public DataManager(String fileDataPath, DataController controller){
         this.fileDataPath = fileDataPath;
         this.controller = controller;
     }
 
+    public void errorOccured(){
+        ++errors;
+        int finalErrors = errors;
+        Platform.runLater(() ->
+                controller.updateErrorCount(finalErrors)
+        );
+    }
+
     @Override
     public void run(){
+        errors = 0;
         String line;
         String splitBy = ",";
-        int errors = 0;
 
         long totalLines, processed = 0;
 
@@ -55,11 +64,7 @@ public class DataManager implements Runnable{
                     birth_date = LocalDate.parse(values[7]);
                 }catch (Exception e){
                     if(!values[0].equals("id")) {
-                        ++errors;
-                        int finalErrors = errors;
-                        Platform.runLater(() ->
-                                controller.updateErrorCount(finalErrors)
-                        );
+                        errorOccured();
                     }
 
                     continue;
@@ -83,10 +88,10 @@ public class DataManager implements Runnable{
                 Thread.sleep(1);
             }
         } catch (IOException e) {
-            System.out.println("Error reading file");
+            errorOccured();
         } catch (InterruptedException e) {
+            errorOccured();
             throw new RuntimeException(e);
         }
     }
-
 }

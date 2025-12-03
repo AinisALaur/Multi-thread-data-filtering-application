@@ -11,23 +11,28 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox prefHeight="430.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.datathreadingapplication.Controllers.TableViewController">
+<HBox prefHeight="430.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.datathreadingapplication.Controllers.TableViewController">
 
     <children>
 
         <!-- Left side -->
-        <VBox prefWidth="450.0" spacing="10.0">
+        <VBox prefHeight="430.0" prefWidth="909.0" spacing="10.0">
             <padding>
                 <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
 
             <children>
 
-                <TableView VBox.vgrow="ALWAYS">
+                <TableView prefHeight="410.0" prefWidth="810.0" VBox.vgrow="ALWAYS">
                     <columns>
-                        <TableColumn prefWidth="220" text="Column 1" />
-                        <TableColumn prefWidth="220" text="Column 2" />
+                        <TableColumn prefWidth="48.0" text="Id" />
+                        <TableColumn prefWidth="105.0" text="First name" />
+                  <TableColumn prefWidth="122.0" text="Last name" />
+                  <TableColumn prefWidth="117.0" text="Email" />
+                  <TableColumn prefWidth="117.0" text="Gender" />
+                  <TableColumn prefWidth="117.0" text="Country" />
+                  <TableColumn prefWidth="117.0" text="Domain" />
+                  <TableColumn prefWidth="145.0" text="Birth date" />
                     </columns>
                 </TableView>
             </children>

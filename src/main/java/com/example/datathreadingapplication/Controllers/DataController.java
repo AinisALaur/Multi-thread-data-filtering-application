@@ -2,17 +2,21 @@ package com.example.datathreadingapplication.Controllers;
 
 import com.example.datathreadingapplication.Classes.DataManager;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 public class DataController {
-
     @FXML
     TextField selectedFilePath;
 
@@ -50,7 +54,10 @@ public class DataController {
             return;
         }
 
+        proceedBtn.setDisable(true);
+
         if(filePath != null && !filePath.isEmpty()) {
+            updateErrorCount(0);
             DataManager dataManager = new DataManager(filePath, this);
             Thread thread = new Thread(dataManager);
             thread.setDaemon(true);
@@ -70,4 +77,11 @@ public class DataController {
         errorCounter.setText(errors + "");
     }
 
+    public void proceedHandler() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/datathreadingapplication/table-view.fxml"));
+        Stage stage = (Stage) proceedBtn.getScene().getWindow();
+        stage.setTitle("Data");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 }

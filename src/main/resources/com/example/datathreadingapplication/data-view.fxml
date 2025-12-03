@@ -96,7 +96,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="proceedBtn" mnemonicParsing="false" text="Proceed">
+            <Button fx:id="proceedBtn" mnemonicParsing="false" onAction="#proceedHandler" text="Proceed">
                <font>
                   <Font size="16.0" />
                </font>
