@@ -2,12 +2,17 @@ package com.example.datathreadingapplication.Controllers;
 
 import com.example.datathreadingapplication.Classes.TableInstance;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TableViewController {
     @FXML
@@ -31,6 +36,12 @@ public class TableViewController {
 
     private ArrayList<TableInstance> instances;
 
+    @FXML
+    ChoiceBox<String> sortBy;
+
+    @FXML
+    ChoiceBox<String> sortingCriteria;
+
     public void initialize() {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("first_name"));
@@ -40,6 +51,141 @@ public class TableViewController {
         countryCol.setCellValueFactory(new PropertyValueFactory<>("country"));
         domainCol.setCellValueFactory(new PropertyValueFactory<>("domain"));
         birthDateCol.setCellValueFactory(new PropertyValueFactory<>("birth_date"));
+
+        ArrayList<String> sortByInstances = new ArrayList<>(){
+            {
+                add("Id");
+                add("First name");
+                add("Last name");
+                add("Email");
+                add("Country");
+                add("Gender");
+                add("Domain");
+                add("Birth date");
+            }
+        };
+
+        ArrayList<String> sortByCriterias = new ArrayList<>(){
+            {
+                add("Ascending");
+                add("Descending");
+            }
+        };
+
+        sortBy.getItems().addAll(sortByInstances);
+        sortingCriteria.getItems().addAll(sortByCriterias);
+    }
+
+    public void setSortByDate(){
+
+
+
+    }
+
+
+    public void sortByChanged(){
+        String filterBy = sortBy.getValue();
+        String filterCriteria = sortingCriteria.getValue();
+
+        if(filterBy == null || filterCriteria == null){
+            return;
+        }
+
+
+        ArrayList<TableInstance> newInstances = null;
+
+        switch (filterBy) {
+            case "First name":
+                newInstances = instances.stream()
+                        .sorted(Comparator.comparing(i -> i.getFirst_name()))
+                        .collect(Collectors.toCollection(ArrayList::new));
+
+                if(filterCriteria.equals("Descending")){
+                    Collections.reverse(newInstances);
+                }
+
+                break;
+
+            case "Last name":
+                newInstances = instances.stream()
+                        .sorted(Comparator.comparing(i -> i.getLast_name()))
+                        .collect(Collectors.toCollection(ArrayList::new));
+
+                if(filterCriteria.equals("Descending")){
+                    Collections.reverse(newInstances);
+                }
+
+                break;
+
+            case "Email":
+                newInstances = instances.stream()
+                    .sorted(Comparator.comparing(i -> i.getEmail()))
+                    .collect(Collectors.toCollection(ArrayList::new));
+
+                if(filterCriteria.equals("Descending")){
+                    Collections.reverse(newInstances);
+                }
+
+                break;
+
+            case "Gender":
+                newInstances = instances.stream()
+                        .sorted(Comparator.comparing(i -> i.getGender()))
+                        .collect(Collectors.toCollection(ArrayList::new));
+
+                if(filterCriteria.equals("Descending")){
+                    Collections.reverse(newInstances);
+                }
+
+                break;
+
+            case "Country":
+                newInstances = instances.stream()
+                        .sorted(Comparator.comparing(i -> i.getCountry()))
+                        .collect(Collectors.toCollection(ArrayList::new));
+
+                if(filterCriteria.equals("Descending")){
+                    Collections.reverse(newInstances);
+                }
+
+                break;
+
+            case "Id":
+                newInstances = instances.stream()
+                        .sorted(Comparator.comparing(i -> i.getId()))
+                        .collect(Collectors.toCollection(ArrayList::new));
+
+                if(filterCriteria.equals("Descending")){
+                    Collections.reverse(newInstances);
+                }
+
+                break;
+
+            case "Domain":
+                newInstances = instances.stream()
+                        .sorted(Comparator.comparing(i -> i.getDomain()))
+                        .collect(Collectors.toCollection(ArrayList::new));
+
+                if(filterCriteria.equals("Descending")){
+                    Collections.reverse(newInstances);
+                }
+
+                break;
+
+
+            case "Birth date":
+                newInstances = instances.stream()
+                        .sorted(Comparator.comparing(i -> i.getBirth_date()))
+                        .collect(Collectors.toCollection(ArrayList::new));
+
+                if(filterCriteria.equals("Descending")){
+                    Collections.reverse(newInstances);
+                }
+
+                break;
+        }
+
+        displayTable(newInstances);
     }
 
     public void displayTable(ArrayList<TableInstance> instancesToDisplay) {
