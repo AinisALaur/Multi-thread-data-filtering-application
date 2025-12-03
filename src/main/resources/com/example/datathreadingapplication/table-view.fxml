@@ -49,22 +49,25 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <DatePicker />
+            <DatePicker fx:id="startDate" />
             <Label text="End date">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <DatePicker />
-                <Button maxWidth="Infinity" text="Filter" />
-                <Button maxWidth="Infinity" text="Remove filter" />
+            <DatePicker fx:id="endDate" />
+                <Button onAction="#prepareData" text="Filter" />
             <Label text="Sort by">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <ChoiceBox onAction = "#sortByChanged" fx:id="sortBy" prefWidth="150.0" />
-            <ChoiceBox onAction = "#sortByChanged" fx:id="sortingCriteria" prefWidth="150.0" />
+            <ChoiceBox fx:id="sortBy" onAction="#prepareData" prefWidth="150.0" />
+            <ChoiceBox fx:id="sortingCriteria" onAction="#prepareData" prefWidth="150.0" />
+                <Button maxWidth="Infinity" onAction="#removeFilters" text="Remove filters">
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin></Button>
             </children>
         </VBox>
 

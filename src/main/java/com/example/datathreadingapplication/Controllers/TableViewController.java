@@ -3,6 +3,7 @@ package com.example.datathreadingapplication.Controllers;
 import com.example.datathreadingapplication.Classes.TableInstance;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -42,6 +43,12 @@ public class TableViewController {
     @FXML
     ChoiceBox<String> sortingCriteria;
 
+    @FXML
+    DatePicker startDate;
+
+    @FXML
+    DatePicker endDate;
+
     public void initialize() {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("first_name"));
@@ -77,26 +84,23 @@ public class TableViewController {
     }
 
     public void setSortByDate(){
+        LocalDate startDateValue = startDate.getValue();
+        LocalDate endDateValue = endDate.getValue();
+
 
 
 
     }
 
-
-    public void sortByChanged(){
+    public ArrayList<TableInstance> sortByChanged(ArrayList<TableInstance> data){
         String filterBy = sortBy.getValue();
         String filterCriteria = sortingCriteria.getValue();
-
-        if(filterBy == null || filterCriteria == null){
-            return;
-        }
-
 
         ArrayList<TableInstance> newInstances = null;
 
         switch (filterBy) {
             case "First name":
-                newInstances = instances.stream()
+                newInstances = data.stream()
                         .sorted(Comparator.comparing(i -> i.getFirst_name()))
                         .collect(Collectors.toCollection(ArrayList::new));
 
@@ -107,7 +111,7 @@ public class TableViewController {
                 break;
 
             case "Last name":
-                newInstances = instances.stream()
+                newInstances = data.stream()
                         .sorted(Comparator.comparing(i -> i.getLast_name()))
                         .collect(Collectors.toCollection(ArrayList::new));
 
@@ -118,7 +122,7 @@ public class TableViewController {
                 break;
 
             case "Email":
-                newInstances = instances.stream()
+                newInstances = data.stream()
                     .sorted(Comparator.comparing(i -> i.getEmail()))
                     .collect(Collectors.toCollection(ArrayList::new));
 
@@ -129,7 +133,7 @@ public class TableViewController {
                 break;
 
             case "Gender":
-                newInstances = instances.stream()
+                newInstances = data.stream()
                         .sorted(Comparator.comparing(i -> i.getGender()))
                         .collect(Collectors.toCollection(ArrayList::new));
 
@@ -140,7 +144,7 @@ public class TableViewController {
                 break;
 
             case "Country":
-                newInstances = instances.stream()
+                newInstances = data.stream()
                         .sorted(Comparator.comparing(i -> i.getCountry()))
                         .collect(Collectors.toCollection(ArrayList::new));
 
@@ -151,7 +155,7 @@ public class TableViewController {
                 break;
 
             case "Id":
-                newInstances = instances.stream()
+                newInstances = data.stream()
                         .sorted(Comparator.comparing(i -> i.getId()))
                         .collect(Collectors.toCollection(ArrayList::new));
 
@@ -162,7 +166,7 @@ public class TableViewController {
                 break;
 
             case "Domain":
-                newInstances = instances.stream()
+                newInstances = data.stream()
                         .sorted(Comparator.comparing(i -> i.getDomain()))
                         .collect(Collectors.toCollection(ArrayList::new));
 
@@ -174,7 +178,7 @@ public class TableViewController {
 
 
             case "Birth date":
-                newInstances = instances.stream()
+                newInstances = data.stream()
                         .sorted(Comparator.comparing(i -> i.getBirth_date()))
                         .collect(Collectors.toCollection(ArrayList::new));
 
@@ -185,7 +189,42 @@ public class TableViewController {
                 break;
         }
 
-        displayTable(newInstances);
+        return newInstances;
+    }
+
+    public void prepareData(){
+        LocalDate startDateValue = startDate.getValue();
+        LocalDate endDateValue = endDate.getValue();
+
+        ArrayList<TableInstance> filteredData = new ArrayList<>(instances);
+
+        if (startDateValue != null) {
+            filteredData = filteredData.stream()
+                    .filter(i -> !i.getBirth_date().isBefore(startDateValue))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        }
+
+        if (endDateValue != null) {
+            filteredData = filteredData.stream()
+                    .filter(i -> !i.getBirth_date().isAfter(endDateValue))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        }
+
+        if(sortBy.getValue() != null && sortingCriteria.getValue() != null){
+            filteredData = sortByChanged(filteredData);
+        }
+
+        displayTable(filteredData);
+    }
+
+    public void removeFilters(){
+        startDate.setValue(null);
+        endDate.setValue(null);
+
+        sortBy.setValue(null);
+        sortingCriteria.setValue(null);
+
+        displayTable(instances);
     }
 
     public void displayTable(ArrayList<TableInstance> instancesToDisplay) {
