@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox prefHeight="430.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.datathreadingapplication.Controllers.TableViewController">
+
+    <children>
+
+        <!-- Left side -->
+        <VBox prefWidth="450.0" spacing="10.0">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+
+            <children>
+
+                <TableView VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn prefWidth="220" text="Column 1" />
+                        <TableColumn prefWidth="220" text="Column 2" />
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+
+        <!-- Right sidebar -->
+        <VBox alignment="TOP_CENTER" prefWidth="150" spacing="10" style="-fx-background-color:#f0f0f0;">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+            <children>
+            <Label text="Start date">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <DatePicker />
+            <Label text="End date">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <DatePicker />
+                <Button maxWidth="Infinity" text="Filter" />
+                <Button maxWidth="Infinity" text="Remove filter" />
+            <Label text="Sort by">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <ChoiceBox prefWidth="150.0" />
+            <ChoiceBox prefWidth="150.0" />
+            </children>
+        </VBox>
+
+    </children>
+
+</HBox>
