@@ -22,6 +22,9 @@ public class DataController {
     @FXML
     Button uploadBtn;
 
+    @FXML
+    Label percentText;
+
     public void onFileSelect() {
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(root.getScene().getWindow());
@@ -33,12 +36,20 @@ public class DataController {
 
     public void uploadHandler() {
         String filePath = selectedFilePath.getText();
+        if(filePath == null || filePath.equals("")){
+            return;
+        }
+
         uploadBtn.setDisable(true);
         if(filePath != null && !filePath.isEmpty()) {
-            DataManager dataManager = new DataManager(filePath);
+            DataManager dataManager = new DataManager(filePath, this);
             Thread thread = new Thread(dataManager);
             thread.setDaemon(true);
             thread.start();
         }
+    }
+
+    public void setProgress(String percent){
+        percentText.setText(percent);
     }
 }

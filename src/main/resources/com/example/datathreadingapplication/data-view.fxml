@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="417.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.datathreadingapplication.Controllers.DataController">
+<VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.datathreadingapplication.Controllers.DataController">
    <children>
       <HBox alignment="CENTER" prefHeight="62.0" prefWidth="600.0">
          <children>
@@ -43,7 +43,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="78.0" prefWidth="600.0">
          <children>
-            <Button onAction="#uploadHandler" fx:id="uploadBtn" mnemonicParsing="false" text="Upload">
+            <Button fx:id="uploadBtn" mnemonicParsing="false" onAction="#uploadHandler" text="Upload">
                <font>
                   <Font size="16.0" />
                </font>
@@ -63,7 +63,7 @@
             </VBox>
             <VBox fx:id="selectFileVbox1" alignment="CENTER" prefHeight="200.0" prefWidth="300.0">
                <children>
-                  <Label text="0%">
+                  <Label fx:id="percentText" text="0%">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -92,6 +92,15 @@
                   </Label>
                </children>
             </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button mnemonicParsing="false" text="Proceed">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
          </children>
       </HBox>
    </children>

@@ -25,4 +25,28 @@ public class TableInstance {
         this.birth_date = birth_date;
     }
 
+    public int getId() {
+        return id;
+    }
+    public String  getFirst_name() {
+        return first_name;
+    }
+    public String getLast_name() {
+        return last_name;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public String getGender() {
+        return gender;
+    }
+    public String getCountry() {
+        return country;
+    }
+    public String getDomain() {
+        return domain;
+    }
+    public LocalDate getBirth_date() {
+        return birth_date;
+    }
 }

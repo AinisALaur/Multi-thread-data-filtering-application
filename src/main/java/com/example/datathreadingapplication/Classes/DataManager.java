@@ -1,16 +1,23 @@
 package com.example.datathreadingapplication.Classes;
 
+import com.example.datathreadingapplication.Controllers.DataController;
+import javafx.application.Platform;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DataManager implements Runnable{
     private String fileDataPath;
+    private DataController controller;
 
-    public DataManager(String fileDataPath){
+    public DataManager(String fileDataPath, DataController controller){
         this.fileDataPath = fileDataPath;
+        this.controller = controller;
     }
 
     @Override
@@ -18,10 +25,19 @@ public class DataManager implements Runnable{
         String line;
         String splitBy = ",";
 
+        long totalLines, processed = 0;
+
+        try {
+            totalLines = Files.lines(Paths.get(fileDataPath)).count();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         try (BufferedReader br = new BufferedReader(new FileReader(fileDataPath))) {
             ArrayList<TableInstance> instances = new ArrayList<>();
 
             while ((line = br.readLine()) != null) {
+                ++processed;
                 String[] values = line.split(splitBy);
                 int id;
                 String name, last_name, email, gender, country, domain;
@@ -42,6 +58,21 @@ public class DataManager implements Runnable{
 
                 TableInstance instance = new TableInstance(id, name, last_name, email, gender, country, domain, birth_date);
                 instances.add(instance);
+
+                if(processed % 100 == 0 || processed ==  totalLines){
+                    double percent;
+
+                    if(processed ==  totalLines){
+                        percent = 100.0;
+                    } else {
+                        percent = (processed * 100.0) / totalLines;
+                    }
+
+                    Platform.runLater(() ->
+                        controller.setProgress(String.format("%.2f%%", percent))
+                    );
+                }
+
             }
         } catch (IOException e) {
             System.out.println("Error reading file");
