@@ -43,7 +43,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="78.0" prefWidth="600.0">
          <children>
-            <Button mnemonicParsing="false" text="Upload">
+            <Button onAction="#uploadHandler" fx:id="uploadBtn" mnemonicParsing="false" text="Upload">
                <font>
                   <Font size="16.0" />
                </font>
