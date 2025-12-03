@@ -23,16 +23,16 @@
 
             <children>
 
-                <TableView prefHeight="410.0" prefWidth="810.0" VBox.vgrow="ALWAYS">
+                <TableView fx:id="tableView" prefHeight="410.0" prefWidth="810.0" VBox.vgrow="ALWAYS">
                     <columns>
-                        <TableColumn prefWidth="48.0" text="Id" />
-                        <TableColumn prefWidth="105.0" text="First name" />
-                  <TableColumn prefWidth="122.0" text="Last name" />
-                  <TableColumn prefWidth="117.0" text="Email" />
-                  <TableColumn prefWidth="117.0" text="Gender" />
-                  <TableColumn prefWidth="117.0" text="Country" />
-                  <TableColumn prefWidth="117.0" text="Domain" />
-                  <TableColumn prefWidth="145.0" text="Birth date" />
+                        <TableColumn fx:id="idCol" prefWidth="48.0" text="Id" />
+                        <TableColumn fx:id="firstNameCol" prefWidth="105.0" text="First name" />
+                        <TableColumn fx:id="lastNameCol" prefWidth="122.0" text="Last name" />
+                        <TableColumn fx:id="emailCol" prefWidth="117.0" text="Email" />
+                        <TableColumn fx:id="genderCol" prefWidth="117.0" text="Gender" />
+                        <TableColumn fx:id="countryCol" prefWidth="117.0" text="Country" />
+                        <TableColumn fx:id="domainCol" prefWidth="117.0" text="Domain" />
+                        <TableColumn fx:id="birthDateCol" prefWidth="145.0" text="Birth date" />
                     </columns>
                 </TableView>
             </children>

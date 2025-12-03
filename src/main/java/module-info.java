@@ -4,6 +4,7 @@ module com.example.datathreadingapplication {
 
 
     opens com.example.datathreadingapplication to javafx.fxml;
+    opens com.example.datathreadingapplication.Classes to javafx.base;
     exports com.example.datathreadingapplication;
     exports com.example.datathreadingapplication.Controllers;
     opens com.example.datathreadingapplication.Controllers to javafx.fxml;

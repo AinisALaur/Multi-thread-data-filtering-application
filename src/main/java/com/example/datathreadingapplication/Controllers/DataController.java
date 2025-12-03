@@ -35,6 +35,8 @@ public class DataController {
     @FXML
     Label errorCounter;
 
+    private DataManager dataManager;
+
     public void initialize(){
         proceedBtn.setDisable(true);
     }
@@ -58,7 +60,7 @@ public class DataController {
 
         if(filePath != null && !filePath.isEmpty()) {
             updateErrorCount(0);
-            DataManager dataManager = new DataManager(filePath, this);
+            dataManager = new DataManager(filePath, this);
             Thread thread = new Thread(dataManager);
             thread.setDaemon(true);
             thread.start();
@@ -78,7 +80,15 @@ public class DataController {
     }
 
     public void proceedHandler() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/example/datathreadingapplication/table-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/com/example/datathreadingapplication/table-view.fxml")
+        );
+
+        Parent root = loader.load();
+
+        TableViewController controller = loader.getController();
+        controller.setInstanceArray(dataManager.instances);
+
         Stage stage = (Stage) proceedBtn.getScene().getWindow();
         stage.setTitle("Data");
         stage.setScene(new Scene(root));

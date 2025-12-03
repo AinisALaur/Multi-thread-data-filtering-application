@@ -1,6 +1,7 @@
 package com.example.datathreadingapplication.Classes;
 
 import com.example.datathreadingapplication.Controllers.DataController;
+import com.example.datathreadingapplication.Controllers.TableViewController;
 import javafx.application.Platform;
 
 import java.io.BufferedReader;
@@ -15,6 +16,7 @@ public class DataManager implements Runnable{
     private String fileDataPath;
     private DataController controller;
     private int errors;
+    public ArrayList<TableInstance> instances = new ArrayList<>();;
 
     public DataManager(String fileDataPath, DataController controller){
         this.fileDataPath = fileDataPath;
@@ -44,8 +46,6 @@ public class DataManager implements Runnable{
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileDataPath))) {
-            ArrayList<TableInstance> instances = new ArrayList<>();
-
             while ((line = br.readLine()) != null) {
                 ++processed;
                 String[] values = line.split(splitBy);
