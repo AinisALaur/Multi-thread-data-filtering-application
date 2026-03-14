@@ -14,7 +14,7 @@ Download all files and run the main java application.
 
 ## Usage
 ![Program Screenshot](demo1.png)
-![Program Screenshot](demo2.png)
+![Program Screenshot](demo3.png)
 
 Simply upload the necessary .csv files and filter the data as you please.
 
