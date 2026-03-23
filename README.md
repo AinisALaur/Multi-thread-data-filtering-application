@@ -10,7 +10,10 @@
 This is a multi-thread program that processes .csv file data. The data can later be filtered by certain criteria (id, name, lastname, date and etc.)
 
 ## Installation & setup
-Download all files and run the main java application.
+```bash
+# clone the repo
+git clone https://github.com/AinisALaur/Multi-thread-data-filtering-application.git
+```
 
 ## Usage
 ![Program Screenshot](demo1.png)
